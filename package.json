@@ -1,0 +1,58 @@
+{
+  "name": "le",
+  "version": "1.0.0",
+  "description": "Initial boilerplate",
+  "main": "index.js",
+  "scripts": {
+    "start": "node api/index.js",
+    "startmon": "nodemon api/index.js",
+    "test": "NODE_ENV=test node test/runner.js",
+    "testmon": "NODE_ENV=test nodemon -e js -i app/ -q -x 'tape test/runner.js | tap-notify | tap-spec'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shouston3/boilerplate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shouston3/boilerplate/issues"
+  },
+  "homepage": "https://github.com/shouston3/boilerplate#readme",
+  "dependencies": {
+    "bluebird": "^3.4.1",
+    "env2": "^2.1.1",
+    "file-loader": "^0.9.0",
+    "hapi": "^14.2.0",
+    "inert": "^4.0.1",
+    "ramda": "^0.22.1",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-redux": "^4.4.5",
+    "redis": "^2.6.2",
+    "redux": "^3.5.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-1": "^6.13.0",
+    "eslint": "^3.3.1",
+    "eslint-plugin-react": "^6.1.2",
+    "node-sass": "^3.8.0",
+    "nodemon": "^1.10.2",
+    "react-hot-loader": "^1.3.0",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1",
+    "tap-diff": "^0.1.1",
+    "tap-notify": "^1.0.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
