@@ -2,15 +2,19 @@
   "name": "le",
   "version": "1.0.0",
   "description": "Boilerplate",
-  "main": "index.js",
+  "main": "api/index.js",
   "scripts": {
     "start": "node api/index.js",
     "startmon": "nodemon api/index.js",
     "dev": "webpack-dev-server --hot --inline --config app/webpack.config.js --content-base app/production/",
     "watch": "webpack --colors --watch --progress --config app/webpack.config.js",
     "build": "webpack --progress --colors --config app/webpack.config.js",
-    "test": "NODE_ENV=test node test/runner.js",
-    "testmon": "NODE_ENV=test nodemon -e js -i app/ -q -x 'tape test/runner.js | tap-notify | tap-spec'"
+    "test": "NODE_ENV=test tape test/runner.js",
+    "testmon": "NODE_ENV=test nodemon -e js -i app/ -q -x 'tape test/runner.js | tap-notify | tap-spec'",
+    "coverage": "NODE_ENV=test istanbul cover tape ./test/runner.js && istanbul check-coverage --statements 90",
+    "lint": "eslint .",
+    "debug:test": "NODE_ENV=test node --debug-brk test/runner.js",
+    "debug:server": "node --debug-brk api/index.js"
   },
   "repository": {
     "type": "git",
@@ -46,6 +50,7 @@
     "css-loader": "^0.23.1",
     "eslint": "^3.3.1",
     "eslint-plugin-react": "^6.1.2",
+    "istanbul": "^0.4.5",
     "node-sass": "^3.8.0",
     "nodemon": "^1.10.2",
     "react-hot-loader": "^1.3.0",
