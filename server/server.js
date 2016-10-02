@@ -10,8 +10,8 @@ var host = process.env.HOST || 'localhost';
 var server = new Hapi.Server();
 
 server.connection({
-  host,
-  port
+  host: host,
+  port: port
 });
 
 server.state('login', {
