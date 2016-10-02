@@ -1,3 +1,4 @@
+#!/bin/bash
 for file in tags/*; do
   # fname are all of the directories in ./tags
   # awk... takes everything after /. E.g. tags/home -> home
