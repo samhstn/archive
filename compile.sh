@@ -10,7 +10,7 @@ for file in tags/*; do
     # write an empty riot tag to the server/views directory
     echo "<$dname></$dname>" > server/views/$dname.html
 
-    # copmile the dirs from the tags direcory to public/tags
+    # compile the dirs from the tags direcory to public/tags
     node_modules/.bin/riot tags/$dname public/tags/$dname.js
   fi
 done
