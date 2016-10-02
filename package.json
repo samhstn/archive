@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
-    "start": "source compile.sh && node server/index.js",
+    "start": "./compile.sh && node server/index.js",
     "startmon": "nodemon server/index.js",
     "compile": "source compile.sh",
     "watch": "nodemon -e tag -x 'source compile.sh'",
