@@ -18,6 +18,11 @@ To get started run:
 git clone https://github.com/shouston3/auth_riot_todo.git && cd auth_riot_todo
 ```
 
+Run the compile script:
+```
+./compile.sh
+```
+
 Install the dependencies:
 ```
 npm install
