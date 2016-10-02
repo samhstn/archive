@@ -11,6 +11,7 @@ addons:
       - g++-4.8
 script: npm run coverage
 before_script:
+  - source compile.sh
   - psql -c 'CREATE DATABASE travis_ci_test;' -U postgres
 after_script:
   - npm run codecov
