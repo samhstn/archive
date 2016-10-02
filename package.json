@@ -9,9 +9,10 @@
     "compile": "source compile.sh",
     "watch": "nodemon -e tag -x 'source compile.sh'",
     "lint": "node_modules/.bin/eslint .",
-    "test": "node_modules/.bin/tape test/runner.js",
+    "test": "NODE_ENV=test node_modules/.bin/tape test/runner.js",
     "testmon": "nodemon -e js -x 'npm test'",
-    "coverage": "node_modules/.bin/istanbul cover node_modules/.bin/tape test/runner.js"
+    "coverage": "NODE_ENV=test node_modules/.bin/istanbul cover node_modules/.bin/tape test/runner.js",
+    "codecov": "node_modules/.bin/codecov"
   },
   "keywords": [],
   "author": "",
