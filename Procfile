@@ -1,1 +1,1 @@
-web: ./compile.sh && node server/index.js
+web: ./heroku-compile.sh && node server/index.js
