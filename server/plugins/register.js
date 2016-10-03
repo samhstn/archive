@@ -8,7 +8,7 @@ exports.register = function (server, options, next) {
       config: {
         description: 'post endpoint for registering',
         handler: function (request, reply) {
-          var client = server.app.client;
+          var pool = server.app.pool;
           var username = request.payload.username;
           var password = request.payload.password;
 
@@ -28,24 +28,28 @@ exports.register = function (server, options, next) {
               + JSON.stringify(request.payload)).code(400);
           }
 
-          client.query('select username from user_table', function (_, res1) {
-            if (
-              res1.rows.map(function (row) {
-                return row && row.username;
-              }).indexOf(username) > -1
-              ) {
-              return reply('Username: ' + username + ' is not available');
-            };
+          pool.connect(function (dbError, client, done) {
+            client.query('select username from user_table', function (_, res1) {
+              if (
+                res1.rows.map(function (row) {
+                  return row && row.username;
+                }).indexOf(username) > -1
+                ) {
+                done();
+                return reply('Username: ' + username + ' is not available');
+              };
 
-            bcrypt.hash(password, 3, function (_, hash) {
-              client.query(
-                'insert into user_table (username, password) values ($1,$2)',
-                [username, hash],
-                function () {
+              bcrypt.hash(password, 3, function (_, hash) {
+                client.query(
+                  'insert into user_table (username, password) values ($1,$2)',
+                  [username, hash],
+                  function () {
 
-                  return reply('Username: ' + username + ' stored');
-                }
-              );
+                    done();
+                    return reply('Username: ' + username + ' stored');
+                  }
+                );
+              });
             });
           });
         }
