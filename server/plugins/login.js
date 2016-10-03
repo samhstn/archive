@@ -8,7 +8,7 @@ exports.register = function (server, options, next) {
       config: {
         description: 'post endpoint for loggin in',
         handler: function (request, reply) {
-          var client = server.app.client;
+          var pool = server.app.pool;
           var username = request.payload.username;
           var password = request.payload.password;
 
@@ -28,36 +28,40 @@ exports.register = function (server, options, next) {
               + JSON.stringify(request.payload)).code(400);
           }
 
-          client.query('select username from user_table', function (err1, names) {
-            if (
-              names.rows.map(function (row) {
-                return row && row.username;
-              }).indexOf(username) === -1
-              ) {
-              return reply('Username: ' + username + ' is not registered');
-            };
+          pool.connect(function (dbError, client, done) {
+            client.query('select username from user_table', function (err1, names) {
+              if (
+                names.rows.map(function (row) {
+                  return row && row.username;
+                }).indexOf(username) === -1
+                ) {
+                done();
+                return reply('Username: ' + username + ' is not registered');
+              };
 
-            client.query(
-              'select password from user_table where username=$1',
-              [username],
-              function (_, data) {
-                var user_password = data.rows[0].password;
+              client.query(
+                'select password from user_table where username=$1',
+                [username],
+                function (_, data) {
+                  var user_password = data.rows[0].password;
 
-                bcrypt.compare(password, user_password, function (_, res) {
-                  if (res) {
+                  bcrypt.compare(password, user_password, function (_, res) {
+                    done();
+                    if (res) {
+                      return reply({
+                        message: 'Logging in',
+                        data: true
+                      }).state('login', { user: username });
+                    }
+
                     return reply({
-                      message: 'Logging in',
-                      data: true
-                    }).state('login', { user: username });
-                  }
-
-                  return reply({
-                    message: 'Incorrect password',
-                    data: false
-                  }).code(401);
-                });
-              }
-            );
+                      message: 'Incorrect password',
+                      data: false
+                    }).code(401);
+                  });
+                }
+              );
+            });
           });
         }
       }

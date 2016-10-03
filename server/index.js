@@ -1,4 +1,3 @@
-require('env2')('./config.env');
 var server = require('./server.js');
 
 server.start((err) => {

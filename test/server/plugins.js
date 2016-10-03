@@ -1,9 +1,11 @@
 var tape = require('tape');
+var pg = require('pg');
+var dbConfig = require('../../server/dbConfig.js');
 
 var server = require('../../server/server.js');
-var client = server.app.client;
+var pool = server.app.pool;
 
-var flushDb = require('../helpers/flushDb.js')(client);
+var flushDb = require('../helpers/flushDb.js')(pool);
 var register = require('../helpers/register.js')(server);
 
 tape('#16,17 POST :: /api/register with incorrect content-type header', function (t) {
@@ -263,7 +265,6 @@ tape('#37,38,39 POST :: /api/login with correct login credentials', function (t)
 
 tape.onFinish(function () {
   flushDb(function () {
-    client.end();
-    server.stop();
+    pool.end()
   });
 });

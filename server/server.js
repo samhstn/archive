@@ -1,3 +1,4 @@
+require('env2')('./config.env');
 var Hapi = require('hapi');
 var Handlebars = require('handlebars');
 
