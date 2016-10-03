@@ -15,7 +15,7 @@
     "codecov": "node_modules/.bin/codecov"
   },
   "keywords": [],
-  "author": "",
+  "author": "shouston3",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^0.8.7",
