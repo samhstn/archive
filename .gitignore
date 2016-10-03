@@ -1,5 +1,3 @@
 node_modules
 coverage
 config.env
-public/tags/*
-server/views/*.html
