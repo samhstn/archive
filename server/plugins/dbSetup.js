@@ -4,7 +4,7 @@ var dbUrl = test ? process.env.TEST_DATABASE_URL : process.env.DATABASE_URL;
 
 console.log(process.env.TEST_DATABASE_URL);
 
-if (!process.env.LOCAL) {
+if (!process.env.NOT_HEORKU) {
   console.log(process.env.LOCAL, pg.defaults.ssl);
   pg.defaults.ssl = true;
 }
