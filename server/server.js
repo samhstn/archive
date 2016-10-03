@@ -6,13 +6,10 @@ var routes = require('./routes/index.js');
 var plugins = require('./plugins/index.js');
 
 var port = process.env.PORT || 5000;
-var host = process.env.HOST || 'localhost';
 
 var server = new Hapi.Server();
 
-server.connection({
-  port: port
-});
+server.connection({ port: port });
 
 server.state('login', {
   ttl: null,
