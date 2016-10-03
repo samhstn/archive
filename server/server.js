@@ -11,7 +11,6 @@ var host = process.env.HOST || 'localhost';
 var server = new Hapi.Server();
 
 server.connection({
-  host: host,
   port: port
 });
 
