@@ -7,6 +7,7 @@ module.exports = {
   host: env.DATABASE_HOST,
   port: env.DATABASE_PORT,
   max: '10',
-  idleTimeoutMillis: 10000
+  idleTimeoutMillis: 10000,
+  ssl: env.HEROKU
 };
 
