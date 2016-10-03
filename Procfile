@@ -1,1 +1,1 @@
-web: node server/index.js
+web: ./compile.sh && node server/index.js
