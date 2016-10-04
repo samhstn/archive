@@ -21,9 +21,12 @@ tape('#16,17 POST :: /api/register with incorrect content-type header', function
 
     server.inject(opts, function (res) {
       t.equal(res.statusCode, 400);
-      t.equal(
-        res.payload,
-        'Incorrect headers, application/json needed'
+      t.deepEqual(
+        JSON.parse(res.payload).validation,
+        {
+          source: 'headers',
+          keys: ['content-type']
+        }
       );
       t.end();
     });
@@ -42,9 +45,12 @@ tape('#18,19 POST :: /api/register with undefined username', function (t) {
 
     server.inject(opts, function (res) {
       t.equal(res.statusCode, 400);
-      t.equal(
-        res.payload,
-        'undefined username from payload: ' + JSON.stringify(opts.payload)
+      t.deepEqual(
+        JSON.parse(res.payload).validation,
+        {
+          source: 'payload',
+          keys: ['username']
+        }
       );
       t.end();
     });
@@ -63,9 +69,12 @@ tape('#20,21 POST :: /api/register with undefined password', function (t) {
 
     server.inject(opts, function (res) {
       t.equal(res.statusCode, 400);
-      t.equal(
-        res.payload,
-        'undefined password from payload: ' + JSON.stringify(opts.payload)
+      t.deepEqual(
+        JSON.parse(res.payload).validation,
+        {
+          source: 'payload',
+          keys: ['password']
+        }
       );
       t.end();
     });
@@ -138,7 +147,13 @@ tape('#26,27 POST :: /api/register with incorrect content-type header', function
     register(payload, function () {
       server.inject(opts, function (res) {
         t.equal(res.statusCode, 400);
-        t.equal(res.payload, 'Incorrect headers, application/json needed');
+        t.deepEqual(
+          JSON.parse(res.payload).validation,
+          {
+            source: 'headers',
+            keys: ['content-type']
+          }
+        );
         t.end();
       });
     });
@@ -158,7 +173,13 @@ tape('#28,29 POST :: /api/login with undefined username', function (t) {
     register(payload, function () {
       server.inject(opts, function (res) {
         t.equal(res.statusCode, 400);
-        t.equal(res.payload, 'undefined username from payload: ' + JSON.stringify(payload));
+        t.deepEqual(
+          JSON.parse(res.payload).validation,
+          {
+            source: 'payload',
+            keys: ['username']
+          }
+        );
         t.end();
       });
     });
@@ -178,7 +199,13 @@ tape('#30,31 POST :: /api/login with undefined password', function (t) {
     register(payload, function () {
       server.inject(opts, function (res) {
         t.equal(res.statusCode, 400);
-        t.equal(res.payload, 'undefined password from payload: ' + JSON.stringify(payload));
+        t.deepEqual(
+          JSON.parse(res.payload).validation,
+          {
+            source: 'payload',
+            keys: ['password']
+          }
+        )
         t.end();
       });
     });
