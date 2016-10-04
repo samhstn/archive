@@ -7,6 +7,15 @@ exports.register = function (server, options, next) {
       path: '/api/register',
       config: {
         description: 'post endpoint for registering',
+        // validate: {
+        //   headers: Joi.object({
+        //     'content-type': Joi.string().valid('application/json').required()
+        //   }).options({ allowUnknown: true }),
+        //   payload: {
+        //     username: Joi.string().required(),
+        //     password: Joi.string().required()
+        //   }
+        // },
         handler: function (request, reply) {
           var pool = server.app.pool;
           var username = request.payload.username;
