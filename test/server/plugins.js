@@ -1,6 +1,4 @@
 var tape = require('tape');
-var pg = require('pg');
-var dbConfig = require('../../server/dbConfig.js');
 
 var server = require('../../server/server.js');
 var pool = server.app.pool;
@@ -265,6 +263,6 @@ tape('#37,38,39 POST :: /api/login with correct login credentials', function (t)
 
 tape.onFinish(function () {
   flushDb(function () {
-    pool.end()
+    pool.end();
   });
 });

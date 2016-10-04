@@ -1,4 +1,4 @@
-var env = process.env
+var env = process.env;
 
 module.exports = {
   user: env.DATABASE_USER,
