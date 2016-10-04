@@ -201,8 +201,8 @@ tape('#32,33 POST :: /api/login with unregistered user', function (t) {
     };
 
     server.inject(opts, function (res) {
-      t.equal(res.statusCode, 200);
-      t.equal(res.payload, 'Username: ' + payload.username + ' is not registered');
+      t.equal(res.statusCode, 401);
+      t.equal(JSON.parse(res.payload).message, 'Username: ' + payload.username + ' is not registered');
       t.end();
     });
   });

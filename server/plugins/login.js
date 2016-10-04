@@ -1,4 +1,4 @@
-var bcrypt = require('bcrypt');
+var loginUser = require('../db/loginUser.js');
 
 exports.register = function (server, options, next) {
   server.route([
@@ -28,40 +28,18 @@ exports.register = function (server, options, next) {
               + JSON.stringify(request.payload)).code(400);
           }
 
-          pool.connect(function (dbError, client, done) {
-            client.query('select username from user_table', function (err1, names) {
-              if (
-                names.rows.map(function (row) {
-                  return row && row.username;
-                }).indexOf(username) === -1
-                ) {
-                done();
-                return reply('Username: ' + username + ' is not registered');
-              };
+          loginUser(server.app.pool, username, password, function (res) {
+            if (res.data) {
+              return reply({
+                message: res.message,
+                data: true
+              }).state('login', { user: username });
+            }
 
-              client.query(
-                'select password from user_table where username=$1',
-                [username],
-                function (_, data) {
-                  var user_password = data.rows[0].password;
-
-                  bcrypt.compare(password, user_password, function (_, res) {
-                    done();
-                    if (res) {
-                      return reply({
-                        message: 'Logging in',
-                        data: true
-                      }).state('login', { user: username });
-                    }
-
-                    return reply({
-                      message: 'Incorrect password',
-                      data: false
-                    }).code(401);
-                  });
-                }
-              );
-            });
+            return reply({
+              message: res.message,
+              data: false
+            }).code(401);
           });
         }
       }
