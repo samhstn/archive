@@ -3,7 +3,7 @@ var views = ['home', 'login', 'register'].map(function (route) {
     method: 'GET',
     path: route === 'home' ? '/' : '/' + route,
     handler: function (request, reply) {
-      reply.view(route, { component: route });
+      reply.view('layout', { component: route });
     }
   };
 });

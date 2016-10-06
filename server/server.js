@@ -22,9 +22,7 @@ server.register(plugins, () => {
   server.views({
     engines: { html: Handlebars },
     relativeTo: __dirname,
-    path: './views',
-    layout: 'default',
-    layoutPath: './views/layout'
+    path: './view'
   });
 
   server.route(routes);

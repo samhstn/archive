@@ -38,7 +38,7 @@ tape('#13,14,15 GET :: /resource/{*param}', function (t) {
       'application/javascript; charset=utf-8',
       'javascript headers'
     );
-    t.ok(res.payload.indexOf('home') !== -1, 'home component');
+    t.ok(res.payload.indexOf('Home View') !== -1, 'home component');
     t.end();
   });
 });
