@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node server/index.js",
     "startmon": "nodemon server/index.js",
-    "compile": "source compile.sh",
-    "watch": "nodemon -e tag -x 'source compile.sh'",
+    "compile": "./compile.sh",
+    "watch": "nodemon -e tag -x './compile.sh'",
     "lint": "node_modules/.bin/eslint .",
     "test": "NODE_ENV=test node_modules/.bin/tape test/runner.js",
     "testmon": "nodemon -e js -x 'npm test'",
@@ -27,8 +27,6 @@
     "inert": "^4.0.2",
     "joi": "^9.1.0",
     "pg": "^6.1.0",
-    "ramda": "^0.22.1",
-    "redis": "^2.6.2",
     "riot": "^2.6.2",
     "vision": "^4.1.0"
   },
