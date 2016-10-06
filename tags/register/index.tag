@@ -1,7 +1,7 @@
-<register>
+<app>
   <h1>Register View</h1>
 
-  <h4><a href="http://localhost:8000/">Home</a></h4>
+  <h4><a href="/">Home</a></h4>
 
   <form onsubmit={ register }>
 
@@ -27,4 +27,4 @@
     }
 
   </script>
-</register>
+</app>

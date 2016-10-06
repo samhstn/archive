@@ -1,7 +1,7 @@
-<login>
+<app>
   <h1>Login View</h1>
 
-  <h4><a href="http://localhost:8000/">Home</a></h4>
+  <h4><a href="/">Home</a></h4>
 
   <form onsubmit={ login }>
 
@@ -27,4 +27,4 @@
     }
 
   </script>
-</login>
+</app>
