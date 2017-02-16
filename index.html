@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Autocomplete</h1>
+
+    <input type='text' />
+    <button>get</button>
+    <script>
+      document.getElementsByTagName('button')[0].addEventListener('click', getWords);
+
+      function getWords () {
+        console.log('GETTING WORDS');
+        var input = document.getElementsByTagName('input')[0].value
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystate = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+          }
+        }
+        xhr.open('get', '/other?' + input)
+        xhr.send();
+      }
+    </script>
+  </body>
+</html>
