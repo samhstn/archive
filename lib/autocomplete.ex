@@ -1,18 +1,29 @@
 defmodule Autocomplete do
-  @moduledoc """
-  Documentation for Autocomplete.
-  """
+  import Plug.Conn
 
-  @doc """
-  Hello world.
+  def init(options), do: options
 
-  ## Examples
+  def sending(conn, map, type) do
+    {:ok, res} = map
+    conn
+    |> put_resp_content_type("text/" <> type)
+    |> send_resp(200, res)
+  end
 
-      iex> Autocomplete.hello
-      :world
+  def word_getter(word) do
+    {:ok, words} = File.read("words.txt")
+    words
+    |> String.split("\n")
+    |> Enum.find(&(&1 == word))
+  end
 
-  """
-  def hello do
-    :world
+  def call(conn, _opts) do
+    case conn.path_info do
+      ["other"] ->
+        sending(conn, {:ok, word_getter(conn.query_string)}, "plain")
+      _ ->
+        sending(conn, File.read("index.html"), "html")
+    end
   end
 end
+
