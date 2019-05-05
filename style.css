@@ -1,0 +1,56 @@
+.word{
+    border: 1px solid black;
+    display: inline;
+    text-align: center;
+    width: 20%;
+    height: 5%;
+    padding: 1% 2% 0 2%;
+    position: absolute;
+}
+.right{
+    left: 40%;
+    background-color: red;
+}
+.left{
+    background-color: blue;
+    left: 10%;
+}
+.one{top: 0%;}
+.two{top: 10%;}
+.three{top: 20%;}
+.four{top: 30%;}
+.five{top: 40%;}
+.six{top: 50%;}
+.seven{top: 60%;}
+.eight{top: 70%;}
+.nine{top: 80%;}
+.ten{top: 90%;}
+.hide{
+    visibility: hidden;
+}
+.thnpbut{
+    text-align: center;
+    position: absolute;
+    right: 5%;
+    border: 1px solid black;
+    width: 12%;
+    height: 5%;
+    padding: 4%;
+    background-color: brown;
+    border-radius: 50%;
+}
+#home{
+    top: 2%;
+}
+#show{
+    top: 27%;
+}
+#hide{
+    top: 27%;
+}
+#next{
+    top: 52%;
+}
+#prev{
+    top: 77%;
+}
