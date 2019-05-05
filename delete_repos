@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for repo in $(ls archive);do
+  curl -X DELETE -H "Authorization: token $GITHUB_PA_TOKEN" https://api.github.com/repos/samhstn/$repo
+done
