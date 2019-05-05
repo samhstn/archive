@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ -z "$GITHUB_PA_TOKEN" ];then
+  echo "Please set a personal access token environment variable GITHUB_PA_TOKEN"
+  exit 1
+fi
+
+if [ -f ./repos.txt ];then
+  echo "repos.txt exists, ok to overwrite? (y/n)?"
+  read answer
+
+  if [ "$answer" != "${answer#[Yy]}" ] ;then
+    rm repos.txt
+  else
+    exit 0
+  fi
+fi
+
+page=1
+url="https://api.github.com/users/samhstn/repos"
+
+echo "Fetching our repos..."
+while [ $(curl -u "samhstn:$GITHUB_PA_TOKEN" -s "$url?page=$page" | jp 'length(@)') != "0" ];do
+  echo "Fetching repos from page $page"
+  curl -u "samhstn:$GITHUB_PA_TOKEN" -s "$url?page=$page" | jp -u 'join(`"\n"`, [*].name)' >> repos.txt
+  page=$[$page+1]
+done
+
+echo "Generated list of all our repositories in file: repos.txt"

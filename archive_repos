@@ -1,0 +1,46 @@
+#!/bin/bash
+
+if [ ! -f ./repos.txt ];then
+  echo "The repos.txt file does not exist"
+  echo "Please generate one with the ./get_repos command"
+  exit 1
+fi
+
+if [ ! -d ./archive ];then
+  mkdir archive
+fi
+
+mkdir temp_archive
+
+mv $(ls -a | grep -Ev '^(.|\.\.|\.git|archive|temp_archive)$') ./temp_archive
+
+last_git_commit=$(git rev-parse HEAD)
+
+git add --all
+git commit -m 'move files to temp_archive'
+
+for repo in $(cat ./temp_archive/repos.txt);do
+  if [ ! -d "./archive/$repo" ];then
+    url="https://api.github.com/repos/samhstn/$repo"
+    response=$(curl -u samhstn:$GITHUB_PA_TOKEN -s $url)
+    default_branch=$(echo $response | jp -u default_branch)
+    ssh_url=$(echo $response | jp -u ssh_url)
+
+    echo "archiving $repo"
+
+    git remote add -f $repo $ssh_url
+    git merge --no-edit --allow-unrelated-histories $repo/$default_branch
+
+    mkdir archive/$repo
+    mv $(ls -a | grep -Ev '^(.|\.\.|\.git|archive|temp_archive)$') ./archive/$repo
+
+    git add --all
+    git commit -m "move $repo to archive directory"
+  fi
+done
+
+mv temp_archive/* temp_archive/.gitignore .
+rm -r temp_archive
+
+git add --all
+git commit -m 'remove temp_archive'
