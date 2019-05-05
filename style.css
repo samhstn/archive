@@ -1,0 +1,23 @@
+.hello{
+    border: 1px solid black;
+    display: inline;
+    text-align: center;
+    width: 20%;
+    height: 20%;
+    padding: 8% 0 0 0;
+    position: absolute;
+}
+.right{
+    left: 50%;
+    background-color: red;
+}
+.left{
+    background-color: blue;
+    left: 25%;
+}
+.two{
+    top: 400px;
+}
+.show{
+    visibility: hidden;
+}
