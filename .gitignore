@@ -1,0 +1,5 @@
+node_modules
+coverage
+config.env
+server/views/*.html
+public/tags/*.js
